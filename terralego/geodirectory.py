@@ -13,7 +13,7 @@ def create_entry(geometry, tags=None):
 
     :param geometry: A WKT string representing the geometry of the entry.
     :param tags: A list of string describing the entry. Can be used for filtering later on.
-    :return: The id of the newly created entry.
+    :return: A geojson describing the entry as a python dictionnary.
     """
     if tags is None:
         tags = []
@@ -23,7 +23,7 @@ def create_entry(geometry, tags=None):
     }
     response = requests.post(GEODIRECTORY_URL, data=data, auth=(settings.USER, settings.PASSWORD))
     response.raise_for_status()
-    return response.json()['id']
+    return response.json()
 
 
 def get_entry(entry_id):
