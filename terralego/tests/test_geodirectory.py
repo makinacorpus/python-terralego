@@ -11,11 +11,10 @@ class TestGeodirectory(TestCase):
         mocked_response.json.return_value = {'id': 'mocked_id'}
         mocked_post.return_value = mocked_response
 
-        entry_id = geodirectory.create_entry('POINT(42 42)')
+        entry = geodirectory.create_entry('POINT(42 42)')
 
         self.assertEqual(mocked_post.call_count, 1)
-        self.assertEqual(entry_id, 'mocked_id')
-
+        self.assertEqual(entry['id'], 'mocked_id')
 
     @mock.patch('requests.get')
     def test_get_entry(self, mocked_get):
