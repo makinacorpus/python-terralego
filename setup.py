@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='terralego',
-    version='0.1',
+    version='0.2',
     description='Python bindings for Terralego services.',
     long_description=readme(),
     classifiers=[
