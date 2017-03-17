@@ -1,5 +1,7 @@
 # Terralego
 
+[![Build Status](https://travis-ci.org/makinacorpus/terralego.svg?branch=master)](https://travis-ci.org/makinacorpus/terralego) [![Documentation Status](https://readthedocs.org/projects/terralego/badge/?version=latest)](http://terralego.readthedocs.io/en/latest/?badge=latest)
+
 ## Getting started
 
 Install the terralego python binding:
