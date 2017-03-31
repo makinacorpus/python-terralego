@@ -48,3 +48,25 @@ class TestGeodirectory(TestCase):
         geodirectory.delete_entry('entry_id')
 
         self.assertEqual(mocked_delete.call_count, 1)
+
+    @mock.patch('requests.get')
+    def test_closest(self, mocked_get):
+        mocked_response = mock.MagicMock()
+        mocked_response.json.return_value = {'id': 'entry_id', 'properties': 'mocked_properties'}
+        mocked_get.return_value = mocked_response
+
+        entry = geodirectory.closest('entry_id')
+
+        self.assertEqual(mocked_get.call_count, 1)
+        self.assertDictEqual(entry, {'id': 'entry_id', 'properties': 'mocked_properties'})
+
+    @mock.patch('requests.get')
+    def test_closest_with_tags(self, mocked_get):
+        mocked_response = mock.MagicMock()
+        mocked_response.json.return_value = {'id': 'entry_id', 'properties': 'mocked_properties'}
+        mocked_get.return_value = mocked_response
+
+        entry = geodirectory.closest('entry_id', ['tag1'])
+
+        self.assertEqual(mocked_get.call_count, 1)
+        self.assertDictEqual(entry, {'id': 'entry_id', 'properties': 'mocked_properties'})

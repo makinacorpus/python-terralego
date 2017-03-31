@@ -76,4 +76,20 @@ def delete_entry(entry_id):
     response.raise_for_status()
 
 
+def closest(entry_id, tags=None):
+    """
+    Get the closest entry.
+
+    :param entry_id: The id of the entry on which to get the closest one.
+    :param tags: Optional, a list of tags to filter the entry which can be the closests.
+    :return: A geojson describing the entry as a python dictionnary. Raise 404 if no entry are found.
+    """
+    url = GEODIRECTORY_ENTRY_DETAIL_URL.format(entry_id=entry_id) + 'weather/'
+    params = {}
+    if tags is not None:
+        params['tags'] = tags
+    response = requests.get(url, auth=(settings.USER, settings.PASSWORD), params=params)
+    response.raise_for_status()
+    return response.json()
+
 # TODO get_entries_list (with filters for tag/distance/contains)
