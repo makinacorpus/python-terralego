@@ -84,8 +84,28 @@ def closest(entry_id, tags=None):
     :param tags: Optional, a list of tags to filter the entry which can be the closests.
     :return: A geojson describing the entry as a python dictionnary. Raise 404 if no entry are found.
     """
-    url = GEODIRECTORY_ENTRY_DETAIL_URL.format(entry_id=entry_id) + 'weather/'
+    url = GEODIRECTORY_ENTRY_DETAIL_URL.format(entry_id=entry_id) + 'closest/'
     params = {}
+    if tags is not None:
+        params['tags'] = tags
+    response = requests.get(url, auth=(settings.USER, settings.PASSWORD), params=params)
+    response.raise_for_status()
+    return response.json()
+
+
+def closest_from(lat, long, tags=None):
+    """
+    Get the closest entry from the point.
+
+    :param lat: The latitude of the point.
+    :param long: The longitude of the point.
+    :param tags: Optional, a list of tags to filter the entry which can be the closests.
+    :return: A geojson describing the entry as a python dictionnary. Raise 404 if no entry are found.
+    """
+    url = GEODIRECTORY_ENTRY_LIST_URL + 'closest_from/'
+    params = {
+        'point': '{0},{1}'.format(float(lat), float(long))
+    }
     if tags is not None:
         params['tags'] = tags
     response = requests.get(url, auth=(settings.USER, settings.PASSWORD), params=params)
