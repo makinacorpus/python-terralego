@@ -93,21 +93,24 @@ def closest(entry_id, tags=None):
     return response.json()
 
 
-def closest_from(lat, long, tags=None):
+def closest_from(lat, long, tags=None, dist=None):
     """
     Get the closest entry from the point.
 
     :param lat: The latitude of the point.
     :param long: The longitude of the point.
     :param tags: Optional, a list of tags to filter the entry which can be the closests.
+    :param dist: Optional, a distance in meters.
     :return: A geojson describing the entry as a python dictionnary. Raise 404 if no entry are found.
     """
     url = GEODIRECTORY_ENTRY_LIST_URL + 'closest_from/'
     params = {
-        'point': '{0},{1}'.format(float(lat), float(long))
+        'point': '{lon},{lat}'.format(lat=float(lat), lon=float(long))
     }
     if tags is not None:
         params['tags'] = tags
+    if dist is not None:
+        params['dist'] = dist
     response = requests.get(url, auth=(settings.USER, settings.PASSWORD), params=params)
     response.raise_for_status()
     return response.json()
