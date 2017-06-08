@@ -23,7 +23,7 @@ setup(
     license='MIT',
     packages=['terralego'],
     install_requires=[
-        'requests==2.13.0',
+        'requests',
     ],
     test_suite='nose.collector',
     tests_require=['nose'],
